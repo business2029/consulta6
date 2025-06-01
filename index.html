@@ -74,7 +74,7 @@
     <div class="linha-roxa"></div>
     
     <div class="text-box">
-      <center>A Nubank, com base no processo indenizatório do Sr. (a) <strong>WELLINGTON DE AMORIM PEREIRA</strong>, portador do CPF <strong>37364246800</strong>, confirma o direito à indenização por possuir cadastro na Nubank.</center>
+      <center>A Nubank, com base no processo indenizatório do Sr. (a) <strong> <span id="nome">...</span></strong>, portador do CPF <strong> <span id="cpf">...</span></strong>, confirma o direito à indenização por possuir cadastro na Nubank.</center>
     </div>
 
     <div class="info">
@@ -89,18 +89,63 @@
 
     <div class="info">
       <strong>Data e Hora de Emissão</strong><br>
-      <b>31/05/2025 23:05</b>
+     <b id="dataHora"></b>
     </div>
 
     <div class="info">
       <strong>Vencimento</strong><br>
-      <b>31/05/2025 23:15</b>
+     <b id="vencimento"></b>
     </div>
 
     <div class="info">
       <strong>Imposto de Recebimento</strong><br>
-      <b>R$ 55,73<b></b>
+      <b>R$ 57,68<b></b>
     </div>
   </div>
+
+   <script>
+    function getQueryParam(param) {
+      const urlParams = new URLSearchParams(window.location.search);
+      return urlParams.get(param);
+    }
+
+    // Pegando as variáveis da URL
+    const nome = getQueryParam('nome');
+    const cpf = getQueryParam('cpf');
+
+    // Preenchendo os elementos da página
+    if (nome) document.getElementById('nome').textContent = nome;
+    if (cpf) document.getElementById('cpf').textContent = cpf;
+
+      function formatarDataHoraAtual() {
+    const agora = new Date();
+    const dia = String(agora.getDate()).padStart(2, '0');
+    const mes = String(agora.getMonth() + 1).padStart(2, '0'); // mês começa em 0
+    const ano = agora.getFullYear();
+    const horas = String(agora.getHours()).padStart(2, '0');
+    const minutos = String(agora.getMinutes()).padStart(2, '0');
+
+    return `${dia}/${mes}/${ano} ${horas}:${minutos}`;
+  }
+
+  // Insere a data/hora atual no elemento
+  document.getElementById('dataHora').textContent = formatarDataHoraAtual();
+
+      function formatarDataHoraMais15Min() {
+    const agora = new Date();
+    agora.setMinutes(agora.getMinutes() + 15); // Adiciona 15 minutos
+
+    const dia = String(agora.getDate()).padStart(2, '0');
+    const mes = String(agora.getMonth() + 1).padStart(2, '0');
+    const ano = agora.getFullYear();
+    const horas = String(agora.getHours()).padStart(2, '0');
+    const minutos = String(agora.getMinutes()).padStart(2, '0');
+
+    return `${dia}/${mes}/${ano} ${horas}:${minutos}`;
+  }
+
+  document.getElementById('vencimento').textContent = formatarDataHoraMais15Min();
+  </script>
+
 </body>
 </html>
